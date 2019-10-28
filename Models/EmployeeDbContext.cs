@@ -23,13 +23,21 @@ namespace EFCoreManyToMany.Models
         {
             modelBuilder.Entity<EmployeesInProject>().HasKey(ep => new { ep.EmployeeId, ep.ProjectId });
 
-            modelBuilder.Entity<EmployeesInProject>().HasOne(ep => ep.Employee)
+            modelBuilder.Entity<EmployeesInProject>()
+                .HasOne(ep => ep.Employee)
                 .WithMany(e => e.EmployeesInProject)
                 .HasForeignKey(ep => ep.EmployeeId);
 
-            modelBuilder.Entity<EmployeesInProject>().HasOne(ep => ep.Project)
+            modelBuilder.Entity<EmployeesInProject>()
+                .HasOne(ep => ep.Project)
                 .WithMany(e => e.EmployeesInProject)
                 .HasForeignKey(ep => ep.ProjectId);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.Employees)
+                .WithOne(e => e.Company)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.SetNull);
 
 
         }
