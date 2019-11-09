@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,9 @@ namespace EFCoreManyToMany.Models
         public DbSet<Project> Projects { get; set; }
         public DbSet<EmployeesInProject> EmployeesInProjects { get; set; }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeesInProject>().HasKey(ep => new { ep.EmployeeId, ep.ProjectId });
@@ -33,11 +37,11 @@ namespace EFCoreManyToMany.Models
                 .WithMany(e => e.EmployeesInProject)
                 .HasForeignKey(ep => ep.ProjectId);
 
-            modelBuilder.Entity<Company>()
-                .HasMany(c => c.Employees)
-                .WithOne(e => e.Company)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.SetNull);
+            //modelBuilder.Entity<Employee>()
+            //    .HasOne(c => c.Company)
+            //    .WithMany(e=>e.Employees)
+            //    .IsRequired(false)
+            //    ;
 
 
         }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreManyToMany.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20191028214637_second")]
-    partial class second
+    [Migration("20191107232805_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
